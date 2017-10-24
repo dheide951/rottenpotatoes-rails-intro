@@ -24,6 +24,9 @@ class MoviesController < ApplicationController
     
     @all_ratings  = @all_ratings.uniq!
   
+    param = params[:ratings] 
+    
+    @movies = Movie.where(rating: param.keys) if !param.nil?
     
     param = params[:sort_by]
     if param == "title"
