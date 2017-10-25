@@ -14,15 +14,15 @@ class MoviesController < ApplicationController
   def index
     @movies = Movie.all
     
-    @all_ratings = []
+    @all_ratings = ['G', 'PG', 'PG-13', 'R']
     
-    @movies.each { |m|
+    # @movies.each { |m|
       
-      @all_ratings.push(m.get_rating)
+    #   @all_ratings.push(m.get_rating)
       
-    }
+    # }
     
-    @all_ratings  = @all_ratings.uniq!
+    # @all_ratings  = @all_ratings.uniq!
   
     param = params[:ratings] 
     
