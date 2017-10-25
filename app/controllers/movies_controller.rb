@@ -12,36 +12,49 @@ class MoviesController < ApplicationController
 
 
   def index
+    
+    redirect = false
     @movies = Movie.all
     
     @all_ratings = []
-    
     @movies.each { |m|
-      
       @all_ratings.push(m.get_rating)
-      
     }
-    
     @all_ratings  = @all_ratings.uniq!
-  
-    param = params[:ratings] 
     
-    @movies = Movie.where(rating: param.keys) if !param.nil?
-    
-    param = params[:sort_by]
-    if param == "title"
+    @sort = params[:sort_by]
+    if @sort == "title"
       @movies = Movie.order(:title)
       @title = "hilite"
-    elsif param == "release_date"
+    elsif @sort == "release_date"
       @movies = Movie.order(:release_date)
       @date = "hilite"
     end
     
+    # if !params[:sort_by] && session[:sort_by]
+    #   @sort = session[:sort_by]
+    #   redirect = true
+    # end
     
+    # if !params[:ratings] && session[:ratings]
+    #   @ratings = session[:ratings]
+    #   redirect = true
+    # end
+    
+    @ratings = params[:ratings] 
+    @movies = Movie.where(rating: @ratings.keys) if !@ratings.nil?
+    
+    # if redirect
+      
+    #   redirect_to movies_path(:sort_by => @sort, :ratings => @ratings)
+      
+    # end
+    
+    # session[:sort_by] = @sort
+    # session[:ratings] = @ratings
+  
   end
     
-
-
   def new
     # default: render 'new' template
   end
