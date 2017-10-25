@@ -24,15 +24,15 @@ class MoviesController < ApplicationController
     
     # @all_ratings  = @all_ratings.uniq!
   
-    param = params[:ratings] 
+    @ratings = params[:ratings] 
     
-    @movies = Movie.where(rating: param.keys) if !param.nil?
+    @movies = Movie.where(rating: param.keys) if !@ratings.nil?
     
-    param = params[:sort_by]
-    if param == "title"
+    @sort = params[:sort_by]
+    if @sort == "title"
       @movies = Movie.order(:title)
       @title = "hilite"
-    elsif param == "release_date"
+    elsif @sort == "release_date"
       @movies = Movie.order(:release_date)
       @date = "hilite"
     end
