@@ -16,11 +16,11 @@ class MoviesController < ApplicationController
     redirect = false
     @movies = Movie.all
     
-    @all_ratings = []
-    @movies.each { |m|
-      @all_ratings.push(m.get_rating)
-    }
-    @all_ratings  = @all_ratings.uniq!
+    @all_ratings = ['G', 'PG', 'PG-13', 'R']
+    # @movies.each { |m|
+    #   @all_ratings.push(m.get_rating)
+    # }
+    # @all_ratings  = @all_ratings.uniq!
     
     @sort = params[:sort_by]
     if @sort == "title"
